@@ -131,3 +131,6 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+
+/.vs/Pushinbar/DesignTimeBuild/.dtbcache.v2
+/.vs/Pushinbar/v17/.futdcache.v1
