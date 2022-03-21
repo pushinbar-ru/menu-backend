@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pushinbar.API", "MenuWebApi\Pushinbar.API.csproj", "{79B5D2A4-1DDF-4252-AAEB-7DEF6D77F25C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pushinbar.KonturMarket.Client", "Pushinbar.KonturMarket.Client\Pushinbar.KonturMarket.Client.csproj", "{75EF12BA-51E1-44E8-B277-13290EEB85E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pushinbar.KonturMarket.Client", "Pushinbar.KonturMarket.Client\Pushinbar.KonturMarket.Client.csproj", "{75EF12BA-51E1-44E8-B277-13290EEB85E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pushinbar.Common", "Pushinbar.Common\Pushinbar.Common.csproj", "{BB44BC1D-F3F7-4BAD-93BE-86D676EBCFE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pushinbar.Common", "Pushinbar.Common\Pushinbar.Common.csproj", "{BB44BC1D-F3F7-4BAD-93BE-86D676EBCFE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pushinbar.TestService", "Pushinbar.TestService\Pushinbar.TestService.csproj", "{3CD2CB81-C5B4-437B-8B68-2F58495EBAE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{BB44BC1D-F3F7-4BAD-93BE-86D676EBCFE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB44BC1D-F3F7-4BAD-93BE-86D676EBCFE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB44BC1D-F3F7-4BAD-93BE-86D676EBCFE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CD2CB81-C5B4-437B-8B68-2F58495EBAE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD2CB81-C5B4-437B-8B68-2F58495EBAE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD2CB81-C5B4-437B-8B68-2F58495EBAE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD2CB81-C5B4-437B-8B68-2F58495EBAE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
