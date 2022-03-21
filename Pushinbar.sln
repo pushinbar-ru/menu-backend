@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pushinbar.KonturMarket.Clie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pushinbar.Common", "Pushinbar.Common\Pushinbar.Common.csproj", "{BB44BC1D-F3F7-4BAD-93BE-86D676EBCFE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pushinbar.TestService", "Pushinbar.TestService\Pushinbar.TestService.csproj", "{3CD2CB81-C5B4-437B-8B68-2F58495EBAE7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
