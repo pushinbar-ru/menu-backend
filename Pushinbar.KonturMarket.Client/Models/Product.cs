@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pushinbar.Common.KonturMarket
+namespace Pushinbar.KonturMarket.Client.Models
 {
-    public class ProductDto
+    public class Product
     {
-        public string Id { get; set; }
-        public string ShopId { get; set; }
+        public Guid Id { get; set; }
+        public Guid ShopId { get; set; }
         public string ProductType { get; set; }
         public int Code { get; set; }
         public string Name { get; set; }
         public string Unit { get; set; }
-        public string GroupId { get; set; }
+        public Guid GroupId { get; set; }
         public string[] Barcodes { get; set; }
         public string TaxSystem { get; set; }
         public string VatRate { get; set; }

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pushinbar.Common.KonturMarket
+namespace Pushinbar.KonturMarket.Client.Models
 {
-    public class ProductGroupDto
+    public class ProductGroup
     {
-        public string Id { get; set; }
-        public string ParentId { get; set; }
+        public Guid Id { get; set; }
+        public Guid? ParentId { get; set; }
         public string Name { get; set; }
     }
 }

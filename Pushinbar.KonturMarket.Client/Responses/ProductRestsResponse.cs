@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Pushinbar.Common.KonturMarket;
+﻿using System.Collections.Generic;
+using Pushinbar.KonturMarket.Client.Models;
 
 namespace Pushinbar.KonturMarket.Client.Responses
 {
     public class ProductRestsResponse
     {
-        public IEnumerable<ProductRestDto> Items;
+        public IEnumerable<ProductRest> Items;
     }
 }

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pushinbar.KonturMarket.Clie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pushinbar.Common", "Pushinbar.Common\Pushinbar.Common.csproj", "{BB44BC1D-F3F7-4BAD-93BE-86D676EBCFE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pushinbar.Services", "Pushinbar.Services\Pushinbar.Services.csproj", "{E6CA9218-0392-45CE-BBA4-A7D66CF61220}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{3CD2CB81-C5B4-437B-8B68-2F58495EBAE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CD2CB81-C5B4-437B-8B68-2F58495EBAE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CD2CB81-C5B4-437B-8B68-2F58495EBAE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6CA9218-0392-45CE-BBA4-A7D66CF61220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6CA9218-0392-45CE-BBA4-A7D66CF61220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6CA9218-0392-45CE-BBA4-A7D66CF61220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6CA9218-0392-45CE-BBA4-A7D66CF61220}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

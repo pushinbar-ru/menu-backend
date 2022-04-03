@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pushinbar.Common.KonturMarket
+namespace Pushinbar.KonturMarket.Client.Models
 {
-    public class ProductRestDto
+    public class ProductRest
     {
-        public string ProductId { get; set; }
+        public Guid ProductId { get; set; }
         public float Rest { get; set; }
     }
 }

@@ -132,5 +132,5 @@ $RECYCLE.BIN/
 
 _NCrunch*
 
-/.vs/Pushinbar/DesignTimeBuild/.dtbcache.v2
-/.vs/Pushinbar/v17/.futdcache.v1
+/.vs
+/.idea

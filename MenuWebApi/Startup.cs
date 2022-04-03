@@ -1,9 +1,14 @@
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Pushinbar.API.Options;
+using Pushinbar.KonturMarket.Client;
+using Pushinbar.Services.Products;
 
 namespace Pushinbar.API
 {
@@ -19,8 +24,17 @@ namespace Pushinbar.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
+            var konturMarketOptions = new KonturMarketOptions();
+            Configuration.GetSection(konturMarketOptions.OptionsTitle).Bind(konturMarketOptions);
+            
+            services.AddTransient<KonturMarketClient>((context) => 
+                new KonturMarketClient(konturMarketOptions.ApiKey, konturMarketOptions.ShopId));
+            services.AddTransient<IProductsService, ProductsService>();
+            services.AddControllers().AddJsonOptions(x =>
+            {
+                // serialize enums as strings in api responses (e.g. Role)
+                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MenuWebApi", Version = "v1" });

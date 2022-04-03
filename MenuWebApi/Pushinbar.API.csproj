@@ -9,4 +9,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Pushinbar.KonturMarket.Client\Pushinbar.KonturMarket.Client.csproj" />
+    <ProjectReference Include="..\Pushinbar.Services\Pushinbar.Services.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using log4net;
-using log4net.Core;
 using Newtonsoft.Json;
-using Pushinbar.Common.KonturMarket;
+using Pushinbar.KonturMarket.Client.Models;
 using Pushinbar.KonturMarket.Client.Responses;
 
 namespace Pushinbar.KonturMarket.Client
@@ -20,59 +16,33 @@ namespace Pushinbar.KonturMarket.Client
         
         private readonly string apiKey;
         private readonly string shopUrl;
-        private readonly ILog log;
 
 
-        public KonturMarketClient(string apiKey, string shopId, ILogger logger, ILog log)
+        public KonturMarketClient(string apiKey, string shopId)
         {
             this.apiKey = apiKey;
             shopUrl = string.Format(ShopUrlTemplate, shopId);
-            this.log = log;
         }
 
-        public async Task<IEnumerable<ProductDto>> GetProductsAsync()
+        public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            try
-            {
-                var url = shopUrl + "/products";
-                var response = await GetAsync<ProductsResponse>(url);
-                return response.Items;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Get products failed.", ex);
-                throw;
-            }
+            var url = shopUrl + "/products";
+            var response = await GetAsync<ProductsResponse>(url);
+            return response.Items;
         }
 
-        public async Task<IEnumerable<ProductGroupDto>> GetProductGroupsAsync()
+        public async Task<IEnumerable<ProductGroup>> GetProductGroupsAsync()
         {
-            try
-            {
-                var url = shopUrl + "/product-groups";
-                var response = await GetAsync<ProductGroupsResponse>(url);
-                return response.Items;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Get product groups failed.", ex);
-                throw;
-            }
+            var url = shopUrl + "/product-groups";
+            var response = await GetAsync<ProductGroupsResponse>(url);
+            return response.Items;
         }
 
-        public async Task<IEnumerable<ProductRestDto>> GetProductRestsAsync()
+        public async Task<IEnumerable<ProductRest>> GetProductRestsAsync()
         {
-            try
-            {
-                var url = shopUrl + "/product-rests";
-                var response = await GetAsync<ProductRestsResponse>(url);
-                return response.Items;
-            }
-            catch (Exception ex)
-            {
-                log.Error("Get product rests failed.", ex);
-                throw;
-            }
+            var url = shopUrl + "/product-rests";
+            var response = await GetAsync<ProductRestsResponse>(url);
+            return response.Items;
         }
 
         private async Task<T> GetAsync<T>(string url)
