@@ -49,6 +49,11 @@ namespace Pushinbar.Services.Products.Snack
             return result;
         }
 
+        public Task<SnackProduct> GetAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<bool> UpdateAsync(IUpdateProduct updateProduct)
         {
             throw new System.NotImplementedException();

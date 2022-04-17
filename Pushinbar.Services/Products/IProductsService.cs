@@ -9,6 +9,7 @@ namespace Pushinbar.Services.Products
     public interface IProductsService<T>
     {
         public Task<IEnumerable<T>> GetAllAsync();
+        public Task<T> GetAsync();
         public Task<bool> UpdateAsync(IUpdateProduct updateProduct);
     }
 }

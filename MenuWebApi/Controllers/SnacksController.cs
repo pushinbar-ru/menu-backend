@@ -28,7 +28,7 @@ namespace Pushinbar.API.Controllers
         
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<SnackProductDto>>> GetAsync()
+        public async Task<ActionResult<IEnumerable<SnackProductDto>>> GetAllAsync()
         {
             var result = Enumerable.Empty<SnackProductDto>();
             
@@ -44,11 +44,19 @@ namespace Pushinbar.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<SnackProductDto>> GetAsync([FromQuery] Guid id)
+        {
+            return Ok(new SnackProductDto());
+        }
         
         [HttpPut]
         [Route("{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult> UpdateAlcoholProductsAsync([FromQuery] Guid id, [FromBody] SnackUpdateProductDto snackUpdateProductDto)
+        public async Task<ActionResult> UpdateAsync([FromQuery] Guid id, [FromBody] SnackUpdateProductDto snackUpdateProductDto)
         {
             return Ok();
         }

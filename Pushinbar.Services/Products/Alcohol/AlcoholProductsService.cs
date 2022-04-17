@@ -54,6 +54,11 @@ namespace Pushinbar.Services.Products.Alcohol
             return result;
         }
 
+        public Task<AlcoholProduct> GetAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<bool> UpdateAsync(IUpdateProduct updateProduct)
         {
             throw new System.NotImplementedException();
