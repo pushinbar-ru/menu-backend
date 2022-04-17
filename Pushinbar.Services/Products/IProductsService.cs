@@ -2,14 +2,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pushinbar.Common.DTOs;
 using Pushinbar.Common.Models;
+using Pushinbar.Common.Models.Interfaces;
 
 namespace Pushinbar.Services.Products
 {
-    public interface IProductsService
+    public interface IProductsService<T>
     {
-        public Task<IEnumerable<AlcoholProduct>> GetAlcoholProductsAsync();
-        public Task<IEnumerable<NotAlcoholProduct>> GetNotAlcoholProductsAsync();
-        public Task<IEnumerable<EatProduct>> GetEatProductsAsync();
-        public Task<IEnumerable<SnackProduct>> GetSnackProductsAsync();
+        public Task<IEnumerable<T>> GetAllAsync();
+        public Task<bool> UpdateAsync(IUpdateProduct updateProduct);
     }
 }

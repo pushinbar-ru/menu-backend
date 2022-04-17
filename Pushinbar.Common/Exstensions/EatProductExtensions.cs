@@ -1,6 +1,7 @@
 using Pushinbar.Common.DTOs;
 using Pushinbar.Common.DTOs.Eat;
 using Pushinbar.Common.Models;
+using Pushinbar.Common.Models.Eat;
 
 namespace Pushinbar.Common.Exstensions
 {

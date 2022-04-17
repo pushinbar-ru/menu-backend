@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Pushinbar.Common.Enums;
+using Pushinbar.Common.Models.Interfaces;
 
-namespace Pushinbar.Common.Models
+namespace Pushinbar.Common.Models.Eat
 {
-    public class NotAlcoholProduct : IProduct
+    public class EatProduct : IProduct
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -17,6 +18,5 @@ namespace Pushinbar.Common.Models
         public int LikesCount { get; set; }
         public string Barcode { get; set; }
         public IEnumerable<string> Subcategories { get; set; }
-        public string  Volume { get; set; }
     }
 }

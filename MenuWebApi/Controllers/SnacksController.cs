@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Pushinbar.Common.DTOs;
 using Pushinbar.Common.DTOs.Snack;
 using Pushinbar.Common.Exstensions;
+using Pushinbar.Common.Models.Snack;
 using Pushinbar.Services.Products;
 
 namespace Pushinbar.API.Controllers
@@ -16,10 +17,10 @@ namespace Pushinbar.API.Controllers
     [Route("products/[controller]")]
     public class SnacksController : ControllerBase
     {
-        private readonly IProductsService productsService;
+        private readonly IProductsService<SnackProduct> productsService;
         private readonly ILogger<SnacksController> logger;
         
-        public SnacksController(IProductsService productsService, ILogger<SnacksController> logger)
+        public SnacksController(IProductsService<SnackProduct> productsService, ILogger<SnacksController> logger)
         {
             this.productsService = productsService;
             this.logger = logger;
@@ -33,7 +34,7 @@ namespace Pushinbar.API.Controllers
             
             try
             {
-                var products = await productsService.GetSnackProductsAsync();
+                var products = await productsService.GetAllAsync();
                 result = products?.Select(x => x.ToDto());
             }
             catch (Exception ex)

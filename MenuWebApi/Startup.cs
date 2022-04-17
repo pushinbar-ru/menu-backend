@@ -7,8 +7,16 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Pushinbar.API.Options;
+using Pushinbar.Common.Models.Alcohol;
+using Pushinbar.Common.Models.Eat;
+using Pushinbar.Common.Models.NotAlcohol;
+using Pushinbar.Common.Models.Snack;
 using Pushinbar.KonturMarket.Client;
 using Pushinbar.Services.Products;
+using Pushinbar.Services.Products.Alcohol;
+using Pushinbar.Services.Products.Eat;
+using Pushinbar.Services.Products.NotAlcohol;
+using Pushinbar.Services.Products.Snack;
 
 namespace Pushinbar.API
 {
@@ -29,7 +37,10 @@ namespace Pushinbar.API
             
             services.AddTransient<KonturMarketClient>((context) => 
                 new KonturMarketClient(konturMarketOptions.ApiKey, konturMarketOptions.ShopId));
-            services.AddTransient<IProductsService, ProductsService>();
+            services.AddTransient<IProductsService<AlcoholProduct>, AlcoholProductsService>();
+            services.AddTransient<IProductsService<NotAlcoholProduct>, NotAlcoholProductsService>();
+            services.AddTransient<IProductsService<EatProduct>, EatProductsService>();
+            services.AddTransient<IProductsService<SnackProduct>, SnackProductsService>();
             services.AddControllers().AddJsonOptions(x =>
             {
                 // serialize enums as strings in api responses (e.g. Role)

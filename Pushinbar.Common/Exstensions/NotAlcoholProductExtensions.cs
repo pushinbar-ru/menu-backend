@@ -1,6 +1,7 @@
 using Pushinbar.Common.DTOs;
 using Pushinbar.Common.DTOs.NotAlcohol;
 using Pushinbar.Common.Models;
+using Pushinbar.Common.Models.NotAlcohol;
 
 namespace Pushinbar.Common.Exstensions
 {

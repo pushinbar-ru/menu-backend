@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Pushinbar.Common.Enums;
+using Pushinbar.Common.Models.Interfaces;
 
-namespace Pushinbar.Common.Models
+namespace Pushinbar.Common.Models.Snack
 {
     public class SnackProduct : IProduct
     {
