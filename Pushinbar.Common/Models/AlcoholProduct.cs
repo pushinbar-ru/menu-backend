@@ -16,9 +16,9 @@ namespace Pushinbar.Common.Models
         public ProductStatus Status { get; set; }
         public int LikesCount { get; set; }
         public string Barcode { get; set; }
+        public IEnumerable<string> Subcategories { get; set; }
         public string Alc { get; set; }
         public string IBU { get; set; }
-        public IEnumerable<string> Subcategories { get; set; }
         public string UntappdUrl { get; set; }
         public string Brewery { get; set; }
         public string  Volume { get; set; }

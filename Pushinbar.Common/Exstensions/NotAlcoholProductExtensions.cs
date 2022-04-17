@@ -20,11 +20,7 @@ namespace Pushinbar.Common.Exstensions
                 Status = product.Status,
                 LikesCount = product.LikesCount,
                 Barcode = product.Barcode,
-                Alc = product.Alc,
-                IBU = product.IBU,
                 Subcategories = product.Subcategories,
-                UntappdUrl = product.UntappdUrl,
-                Brewery = product.Brewery,
                 Volume = product.Volume
             };
         }

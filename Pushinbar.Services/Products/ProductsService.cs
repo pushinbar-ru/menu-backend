@@ -79,11 +79,7 @@ namespace Pushinbar.Services.Products
                     Status = ProductStatus.New,
                     LikesCount = 0,
                     Barcode = notAlcoholProduct.Barcodes?.FirstOrDefault(),
-                    Alc = null,
-                    IBU = null,
                     Subcategories = null,
-                    UntappdUrl = null,
-                    Brewery = null,
                     Volume = null
                 };
                 result.Add(product);
@@ -115,7 +111,8 @@ namespace Pushinbar.Services.Products
                     Rest = ProductsServiceHelper.GetProductRest(eatProduct.Id, productsRests),
                     Status = ProductStatus.New,
                     LikesCount = 0,
-                    Barcode = eatProduct.Barcodes?.FirstOrDefault()
+                    Barcode = eatProduct.Barcodes?.FirstOrDefault(),
+                    Subcategories = null
                 };
                 result.Add(product);
             }
@@ -146,7 +143,8 @@ namespace Pushinbar.Services.Products
                     Rest = ProductsServiceHelper.GetProductRest(snackProduct.Id, productsRests),
                     Status = ProductStatus.New,
                     LikesCount = 0,
-                    Barcode = snackProduct.Barcodes?.FirstOrDefault()
+                    Barcode = snackProduct.Barcodes?.FirstOrDefault(),
+                    Subcategories = null
                 };
                 result.Add(product);
             }

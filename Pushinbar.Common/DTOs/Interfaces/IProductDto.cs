@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Pushinbar.Common.Enums;
 
 namespace Pushinbar.Common.DTOs.Interfaces
@@ -15,5 +16,6 @@ namespace Pushinbar.Common.DTOs.Interfaces
         public ProductStatus Status { get; set; }
         public int LikesCount { get; set; }
         public string Barcode { get; set; }
+        public IEnumerable<string> Subcategories { get; set; }
     }
 }

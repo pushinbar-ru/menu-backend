@@ -19,7 +19,8 @@ namespace Pushinbar.Common.Exstensions
                 Rest = product.Rest,
                 Status = product.Status,
                 LikesCount = product.LikesCount,
-                Barcode = product.Barcode
+                Barcode = product.Barcode,
+                Subcategories = product.Subcategories
             };
         }
     }
