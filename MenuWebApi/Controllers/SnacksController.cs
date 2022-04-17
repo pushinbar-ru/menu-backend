@@ -47,7 +47,7 @@ namespace Pushinbar.API.Controllers
         [HttpPut]
         [Route("{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult> UpdateAlcoholProductsAsync([FromQuery] Guid id)
+        public async Task<ActionResult> UpdateAlcoholProductsAsync([FromQuery] Guid id, [FromBody] SnackUpdateProductDto snackUpdateProductDto)
         {
             return Ok();
         }
