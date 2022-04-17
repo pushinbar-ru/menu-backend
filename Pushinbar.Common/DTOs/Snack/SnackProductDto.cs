@@ -1,17 +1,11 @@
 using System;
-using System.Collections.Generic;
+using Pushinbar.Common.DTOs.Interfaces;
 using Pushinbar.Common.Enums;
 
-namespace Pushinbar.Common.DTOs
+namespace Pushinbar.Common.DTOs.Snack
 {
-    public class AlcoholProductDto : IProductDto
+    public class SnackProductDto : IProductDto
     {
-        public string Alc { get; set; }
-        public string IBU { get; set; }
-        public IEnumerable<string> Subcategories { get; set; }
-        public string UntappdUrl { get; set; }
-        public string Brewery { get; set; }
-        public string  Volume { get; set; }
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Photo { get; set; }

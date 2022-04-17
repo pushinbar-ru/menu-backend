@@ -1,10 +1,10 @@
 using System;
-using System.Collections.Generic;
+using Pushinbar.Common.DTOs.Interfaces;
 using Pushinbar.Common.Enums;
 
-namespace Pushinbar.Common.DTOs
+namespace Pushinbar.Common.DTOs.Eat
 {
-    public interface IProductDto
+    public class EatProductDto : IProductDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

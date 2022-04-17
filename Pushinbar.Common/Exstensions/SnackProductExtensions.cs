@@ -1,4 +1,5 @@
 using Pushinbar.Common.DTOs;
+using Pushinbar.Common.DTOs.Snack;
 using Pushinbar.Common.Models;
 
 namespace Pushinbar.Common.Exstensions
