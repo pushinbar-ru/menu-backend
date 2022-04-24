@@ -21,12 +21,12 @@ namespace Pushinbar.Repositories
             return dbContext.NotAlcohol;
         }
 
-        public async Task<NotAlcoholEntity> GetAsync(Guid id)
+        public async Task<NotAlcoholEntity?> GetAsync(Guid id)
         {
             throw await dbContext.NotAlcohol.FindAsync(id);
         }
 
-        public async Task  CreateAsync(NotAlcoholEntity item)
+        public async Task CreateAsync(NotAlcoholEntity item)
         {
             await dbContext.NotAlcohol.AddAsync(item);
         }
@@ -36,7 +36,7 @@ namespace Pushinbar.Repositories
             dbContext.Entry(item).State = EntityState.Modified;
         }
 
-        public async Task  DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var item = await dbContext.NotAlcohol.FindAsync(id);
             if (item != null)

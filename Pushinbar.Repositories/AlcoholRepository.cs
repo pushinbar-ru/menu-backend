@@ -20,7 +20,7 @@ namespace Pushinbar.Repositories
             return dbContext.Alcohol;
         }
 
-        public async Task<AlcoholEntity> GetAsync(Guid id)
+        public async Task<AlcoholEntity?> GetAsync(Guid id)
         {
             return await dbContext.Alcohol.FindAsync(id);
         }
@@ -37,7 +37,7 @@ namespace Pushinbar.Repositories
 
         public async Task DeleteAsync(Guid id)
         {
-            var item = await dbContext.Alcohol.FindAsync();
+            var item = await dbContext.Alcohol.FindAsync(id);
             if (item != null)
                 dbContext.Alcohol.Remove(item);
         }

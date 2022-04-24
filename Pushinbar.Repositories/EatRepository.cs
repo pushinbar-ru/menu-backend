@@ -20,7 +20,7 @@ namespace Pushinbar.Repositories
             return dbContext.Eat;
         }
 
-        public async Task<EatEntity> GetAsync(Guid id)
+        public async Task<EatEntity?> GetAsync(Guid id)
         {
             return await dbContext.Eat.FindAsync(id);
         }
