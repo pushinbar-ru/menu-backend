@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -57,9 +58,10 @@ namespace Pushinbar.Services.Products.Alcohol
             return result;
         }
 
-        public Task<AlcoholProduct> GetAsync()
+        public async Task<AlcoholProduct> GetAsync(Guid id)
         {
-            throw new System.NotImplementedException();
+            var foundItemEntity = await alcoholRepository.GetAsync(id);
+            
         }
 
         public Task<bool> UpdateAsync(IUpdateProduct updateProduct)

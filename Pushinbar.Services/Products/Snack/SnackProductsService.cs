@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,7 +53,7 @@ namespace Pushinbar.Services.Products.Snack
             return result;
         }
 
-        public Task<SnackProduct> GetAsync()
+        public Task<SnackProduct> GetAsync(Guid id)
         {
             throw new System.NotImplementedException();
         }

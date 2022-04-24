@@ -19,7 +19,7 @@ namespace Pushinbar.Repositories
             return dbContext.Snacks;
         }
 
-        public async Task<SnackEntity> GetAsync(int id)
+        public async Task<SnackEntity> GetAsync(Guid id)
         {
             return await dbContext.Snacks.FindAsync(id);
         }
@@ -34,7 +34,7 @@ namespace Pushinbar.Repositories
             dbContext.Entry(item).State = EntityState.Modified;
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             var item = await dbContext.Snacks.FindAsync(id);
             if (item != null)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,7 +54,7 @@ namespace Pushinbar.Services.Products.NotAlcohol
             return result;
         }
 
-        public Task<NotAlcoholProduct> GetAsync()
+        public Task<NotAlcoholProduct> GetAsync(Guid id)
         {
             throw new System.NotImplementedException();
         }
