@@ -12,6 +12,7 @@ using Pushinbar.Common.Models.Eat;
 using Pushinbar.Common.Models.NotAlcohol;
 using Pushinbar.Common.Models.Snack;
 using Pushinbar.KonturMarket.Client;
+using Pushinbar.Repositories;
 using Pushinbar.Services.Products;
 using Pushinbar.Services.Products.Alcohol;
 using Pushinbar.Services.Products.Eat;
@@ -34,9 +35,23 @@ namespace Pushinbar.API
         {
             var konturMarketOptions = new KonturMarketOptions();
             Configuration.GetSection(konturMarketOptions.OptionsTitle).Bind(konturMarketOptions);
-            
+
+            var dbOptions = new DbOptions();
+            Configuration.GetSection(dbOptions.OptionsTitle).Bind(dbOptions);
+
             services.AddTransient<KonturMarketClient>((context) => 
                 new KonturMarketClient(konturMarketOptions.ApiKey, konturMarketOptions.ShopId));
+            
+            services.AddTransient<AlcoholRepository>((context) => 
+                new AlcoholRepository(dbOptions.ConnectionString));
+            services.AddTransient<NotAlcoholRepository>((context) => 
+                new NotAlcoholRepository(dbOptions.ConnectionString));
+            services.AddTransient<EatRepository>((context) => 
+                new EatRepository(dbOptions.ConnectionString));
+            services.AddTransient<SnackRepository>((context) => 
+                new SnackRepository(dbOptions.ConnectionString));
+            
+            
             services.AddTransient<IProductsService<AlcoholProduct>, AlcoholProductsService>();
             services.AddTransient<IProductsService<NotAlcoholProduct>, NotAlcoholProductsService>();
             services.AddTransient<IProductsService<EatProduct>, EatProductsService>();

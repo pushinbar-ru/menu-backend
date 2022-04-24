@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Pushinbar.KonturMarket.Client\Pushinbar.KonturMarket.Client.csproj" />
+      <ProjectReference Include="..\Pushinbar.Repositories\Pushinbar.Repositories.csproj" />
     </ItemGroup>
 
 </Project>

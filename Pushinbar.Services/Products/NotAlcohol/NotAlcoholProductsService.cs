@@ -5,16 +5,19 @@ using Pushinbar.Common.Enums;
 using Pushinbar.Common.Models.Interfaces;
 using Pushinbar.Common.Models.NotAlcohol;
 using Pushinbar.KonturMarket.Client;
+using Pushinbar.Repositories;
 
 namespace Pushinbar.Services.Products.NotAlcohol
 {
     public class NotAlcoholProductsService : IProductsService<NotAlcoholProduct>
     {
         private KonturMarketClient konturMarketClient { get; set; }
-        
-        public NotAlcoholProductsService(KonturMarketClient konturMarketClient)
+        private NotAlcoholRepository notAlcoholRepository;
+
+        public NotAlcoholProductsService(KonturMarketClient konturMarketClient, NotAlcoholRepository notAlcoholRepository)
         {
             this.konturMarketClient = konturMarketClient;
+            this.notAlcoholRepository = notAlcoholRepository;
         }
         
         public async Task<IEnumerable<NotAlcoholProduct>> GetAllAsync()
