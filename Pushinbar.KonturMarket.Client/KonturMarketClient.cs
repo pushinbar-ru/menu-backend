@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -43,6 +44,12 @@ namespace Pushinbar.KonturMarket.Client
             var url = shopUrl + "/product-rests";
             var response = await GetAsync<ProductRestsResponse>(url);
             return response.Items;
+        }
+        
+        public async Task<ProductRest> GetProductRestsByIdAsync(Guid id)
+        {
+            var productRests = await GetProductRestsAsync();
+            return productRests.FirstOrDefault(x => x.ProductId == id);
         }
 
         private async Task<T> GetAsync<T>(string url)

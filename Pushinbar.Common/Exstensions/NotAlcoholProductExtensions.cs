@@ -1,5 +1,6 @@
 using Pushinbar.Common.DTOs;
 using Pushinbar.Common.DTOs.NotAlcohol;
+using Pushinbar.Common.Entities;
 using Pushinbar.Common.Models;
 using Pushinbar.Common.Models.NotAlcohol;
 
@@ -24,6 +25,21 @@ namespace Pushinbar.Common.Exstensions
                 Subcategories = product.Subcategories,
                 Volume = product.Volume
             };
+        }
+        
+        public static void UpdateFromEntity(this NotAlcoholProduct alcoholProduct, NotAlcoholEntity alcoholEntity)
+        {
+            alcoholProduct.Id = alcoholEntity.Id;
+            alcoholProduct.Name = alcoholEntity.Name;
+            alcoholProduct.Photo = alcoholEntity.Photo;
+            alcoholProduct.Description = alcoholEntity.Description;
+            alcoholProduct.Price = alcoholEntity.Price;
+            alcoholProduct.Type = alcoholEntity.Type;
+            alcoholProduct.Status = alcoholEntity.Status;
+            alcoholProduct.LikesCount = alcoholEntity.LikesCount;
+            alcoholProduct.Barcode = alcoholEntity.Barcode;
+            alcoholProduct.Subcategories = alcoholEntity.Subcategories;
+            alcoholProduct.Volume = alcoholEntity.Volume;
         }
     }
 }

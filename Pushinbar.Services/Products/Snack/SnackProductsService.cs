@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Pushinbar.Common.Enums;
+using Pushinbar.Common.Exstensions;
 using Pushinbar.Common.Models.Interfaces;
 using Pushinbar.Common.Models.Snack;
 using Pushinbar.KonturMarket.Client;
@@ -53,9 +54,17 @@ namespace Pushinbar.Services.Products.Snack
             return result;
         }
 
-        public Task<SnackProduct> GetAsync(Guid id)
+        public async Task<SnackProduct> GetAsync(Guid id)
         {
-            throw new System.NotImplementedException();
+            var foundItemEntity = await snackRepository.GetAsync(id);
+            if (foundItemEntity == null)
+                return null;
+            var item = new SnackProduct();
+            item.UpdateFromEntity(foundItemEntity);
+            var rest = await konturMarketClient.GetProductRestsByIdAsync(foundItemEntity.KonturMarketId);
+            if (rest != null)
+                item.Rest = rest.Rest;
+            return item;
         }
 
         public Task<bool> UpdateAsync(IUpdateProduct updateProduct)

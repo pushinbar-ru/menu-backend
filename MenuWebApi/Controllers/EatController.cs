@@ -50,7 +50,10 @@ namespace Pushinbar.API.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<EatProductDto>> GetAsync([FromQuery] Guid id)
         {
-            return Ok(new EatProductDto());
+            var product = await productsService.GetAsync(id);
+            if (product == null)
+                return NotFound();
+            return Ok(product);
         }
         
         [HttpPut]
