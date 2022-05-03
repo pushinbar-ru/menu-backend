@@ -67,9 +67,21 @@ namespace Pushinbar.Services.Products.Snack
             return item;
         }
 
-        public Task<bool> UpdateAsync(IUpdateProduct updateProduct)
+        public async Task<bool> TryUpdateAsync(Guid id, IUpdateProduct updateProduct)
         {
-            throw new System.NotImplementedException();
+            if (updateProduct is not SnackUpdateProduct alcoholUpdateProduct)
+                throw new ArgumentException("UpdateProduct should be is AlcoholUpdateProduct");
+            
+            var item = await snackRepository.GetAsync(id);
+            if (item == null)
+                return false;
+            
+            item.ApplyUpdate(alcoholUpdateProduct);
+
+            snackRepository.Update(item);
+            await snackRepository.SaveAsync();
+
+            return true;
         }
     }
 }

@@ -61,6 +61,11 @@ namespace Pushinbar.API.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> UpdateAsync([FromQuery] Guid id, [FromBody] EatUpdateProductDto eatUpdateProductDto)
         {
+            var alcoholUpdateProduct = new EatUpdateProduct();
+            alcoholUpdateProduct.UpdateFromDto(eatUpdateProductDto);
+            var result = await productsService.TryUpdateAsync(id, alcoholUpdateProduct);
+            if (!result)
+                return NotFound();
             return Ok();
         }
     }
