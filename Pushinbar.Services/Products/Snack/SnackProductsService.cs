@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Pushinbar.Common.Entities;
 using Pushinbar.Common.Enums;
 using Pushinbar.Common.Exstensions;
+using Pushinbar.Common.Models.Eat;
 using Pushinbar.Common.Models.Interfaces;
 using Pushinbar.Common.Models.Snack;
 using Pushinbar.KonturMarket.Client;
@@ -32,22 +34,36 @@ namespace Pushinbar.Services.Products.Snack
                 .Where(product => ProductsServiceHelper.IsSnack(product.GroupId, productGroups.ToArray()));
             
             var result = new List<SnackProduct>();
+            var snackEntities = snackRepository.GetAll().ToArray();
             foreach (var snackProduct in snackProducts)
             {
+                var productEntity = snackEntities.FirstOrDefault(x => x.KonturMarketId == snackProduct.Id);
+                if (productEntity == null)
+                {
+                    productEntity = new SnackEntity()
+                    {
+                        Id = Guid.NewGuid(),
+                        KonturMarketId = snackProduct.Id,
+                        Name = snackProduct.Name,
+                        Photo = null,
+                        Description = null,
+                        Price = snackProduct.SellPricePerUnit,
+                        Type = ProductType.Eat,
+                        Status = ProductStatus.New,
+                        LikesCount = 0,
+                        Barcode = snackProduct.Barcodes?.FirstOrDefault(),
+                        Subcategories = null
+                    };
+                    await snackRepository.CreateAsync(productEntity);
+                    await snackRepository.SaveAsync();
+                }
+
                 var product = new SnackProduct()
                 {
-                    Id = snackProduct.Id,
-                    Name = snackProduct.Name,
-                    Photo = null,
-                    Description = null,
-                    Price = snackProduct.SellPricePerUnit,
-                    Type = ProductType.Snack,
-                    Rest = ProductsServiceHelper.GetProductRest(snackProduct.Id, productsRests),
-                    Status = ProductStatus.New,
-                    LikesCount = 0,
-                    Barcode = snackProduct.Barcodes?.FirstOrDefault(),
-                    Subcategories = null
+                    Rest = ProductsServiceHelper.GetProductRest(snackProduct.Id, productsRests)
                 };
+                product.UpdateFromEntity(productEntity);
+                
                 result.Add(product);
             }
 

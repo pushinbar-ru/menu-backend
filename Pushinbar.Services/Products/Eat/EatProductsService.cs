@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Pushinbar.Common.Entities;
 using Pushinbar.Common.Enums;
 using Pushinbar.Common.Exstensions;
+using Pushinbar.Common.Models.Alcohol;
 using Pushinbar.Common.Models.Eat;
 using Pushinbar.Common.Models.Interfaces;
 using Pushinbar.KonturMarket.Client;
@@ -32,22 +34,36 @@ namespace Pushinbar.Services.Products.Eat
                 .Where(product => ProductsServiceHelper.IsEat(product.GroupId, productGroups.ToArray()));
             
             var result = new List<EatProduct>();
+            var eatEntities = eatRepository.GetAll().ToArray();
             foreach (var eatProduct in eatProducts)
             {
+                var productEntity = eatEntities.FirstOrDefault(x => x.KonturMarketId == eatProduct.Id);
+                if (productEntity == null)
+                {
+                    productEntity = new EatEntity()
+                    {
+                        Id = Guid.NewGuid(),
+                        KonturMarketId = eatProduct.Id,
+                        Name = eatProduct.Name,
+                        Photo = null,
+                        Description = null,
+                        Price = eatProduct.SellPricePerUnit,
+                        Type = ProductType.Eat,
+                        Status = ProductStatus.New,
+                        LikesCount = 0,
+                        Barcode = eatProduct.Barcodes?.FirstOrDefault(),
+                        Subcategories = null
+                    };
+                    await eatRepository.CreateAsync(productEntity);
+                    await eatRepository.SaveAsync();
+                }
+
                 var product = new EatProduct()
                 {
-                    Id = eatProduct.Id,
-                    Name = eatProduct.Name,
-                    Photo = null,
-                    Description = null,
-                    Price = eatProduct.SellPricePerUnit,
-                    Type = ProductType.Eat,
-                    Rest = ProductsServiceHelper.GetProductRest(eatProduct.Id, productsRests),
-                    Status = ProductStatus.New,
-                    LikesCount = 0,
-                    Barcode = eatProduct.Barcodes?.FirstOrDefault(),
-                    Subcategories = null
+                    Rest = ProductsServiceHelper.GetProductRest(eatProduct.Id, productsRests)
                 };
+                product.UpdateFromEntity(productEntity);
+                
                 result.Add(product);
             }
 

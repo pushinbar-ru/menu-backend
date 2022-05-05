@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Pushinbar.Common.Entities;
 using Pushinbar.Common.Enums;
 using Pushinbar.Common.Exstensions;
 using Pushinbar.Common.Models.Alcohol;
@@ -32,30 +33,43 @@ namespace Pushinbar.Services.Products.Alcohol
                 .Where(product => ProductsServiceHelper.IsAlcohol(product.GroupId, productGroups.ToArray()));
             
             var result = new List<AlcoholProduct>();
+            var alcoholEntities = alcoholRepository.GetAll().ToArray();
             foreach (var alcoholProduct in alcoholProducts)
             {
+                var productEntity = alcoholEntities.FirstOrDefault(x => x.KonturMarketId == alcoholProduct.Id);
+                if (productEntity == null)
+                {
+                    productEntity = new AlcoholEntity()
+                    {
+                        Id = Guid.NewGuid(),
+                        KonturMarketId = alcoholProduct.Id,
+                        Name = alcoholProduct.Name,
+                        Photo = null,
+                        Description = null,
+                        Price = alcoholProduct.SellPricePerUnit,
+                        Type = ProductType.Alcohol,
+                        Status = ProductStatus.New,
+                        LikesCount = 0,
+                        Barcode = alcoholProduct.Barcodes?.FirstOrDefault(),
+                        Subcategories = null,
+                        Alc = null,
+                        IBU = null,
+                        UntappdUrl = null,
+                        Brewery = null,
+                        Volume = null
+                    };
+                    await alcoholRepository.CreateAsync(productEntity);
+                    await alcoholRepository.SaveAsync();
+                }
+
                 var product = new AlcoholProduct()
                 {
-                    Id = alcoholProduct.Id,
-                    Name = alcoholProduct.Name,
-                    Photo = null,
-                    Description = null,
-                    Price = alcoholProduct.SellPricePerUnit,
-                    Type = ProductType.Alcohol,
-                    Rest = ProductsServiceHelper.GetProductRest(alcoholProduct.Id, productsRests),
-                    Status = ProductStatus.New,
-                    LikesCount = 0,
-                    Barcode = alcoholProduct.Barcodes?.FirstOrDefault(),
-                    Alc = null,
-                    IBU = null,
-                    Subcategories = null,
-                    UntappdUrl = null,
-                    Brewery = null,
-                    Volume = null
+                    Rest = ProductsServiceHelper.GetProductRest(alcoholProduct.Id, productsRests)
                 };
+                product.UpdateFromEntity(productEntity);
+                
                 result.Add(product);
             }
-
             return result;
         }
 
