@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -41,6 +42,9 @@ namespace Pushinbar.API
 
             services.AddTransient<KonturMarketClient>((context) => 
                 new KonturMarketClient(konturMarketOptions.ApiKey, konturMarketOptions.ShopId));
+            
+            services.AddDbContext<DBContext>(options =>
+                options.UseNpgsql(dbOptions.ConnectionString));
             
             services.AddTransient<AlcoholRepository>((context) => 
                 new AlcoholRepository(dbOptions.ConnectionString));
