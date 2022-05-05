@@ -1,3 +1,4 @@
+using System.Linq;
 using Pushinbar.Common.Entities;
 using Pushinbar.Common.Models.Snack;
 
@@ -12,7 +13,7 @@ namespace Pushinbar.Common.Exstensions
             alcoholEntity.Description = alcoholUpdateProduct.Description;
             alcoholEntity.Status = alcoholUpdateProduct.Status;
             alcoholEntity.Barcode = alcoholUpdateProduct.Barcode;
-            alcoholEntity.Subcategories = alcoholUpdateProduct.Subcategories;
+            alcoholEntity.Subcategories = alcoholUpdateProduct.Subcategories.ToString();
         }
     }
 }

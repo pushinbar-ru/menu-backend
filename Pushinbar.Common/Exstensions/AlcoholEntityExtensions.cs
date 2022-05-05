@@ -12,7 +12,7 @@ namespace Pushinbar.Common.Exstensions
             alcoholEntity.Description = alcoholUpdateProduct.Description;
             alcoholEntity.Status = alcoholUpdateProduct.Status;
             alcoholEntity.Barcode = alcoholUpdateProduct.Barcode;
-            alcoholEntity.Subcategories = alcoholUpdateProduct.Subcategories;
+            alcoholEntity.Subcategories = alcoholUpdateProduct.Subcategories.ToString();
             alcoholEntity.IBU = alcoholUpdateProduct.IBU;
             alcoholEntity.UntappdUrl = alcoholUpdateProduct.UntappdUrl;
             alcoholEntity.Brewery = alcoholUpdateProduct.Brewery;

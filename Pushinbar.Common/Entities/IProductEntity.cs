@@ -19,6 +19,6 @@ namespace Pushinbar.Common.Entities
         public int LikesCount { get; set; }
         public string Barcode { get; set; }
         
-        public IEnumerable<string> Subcategories { get; set; }
+        public string Subcategories { get; set; }
     }
 }

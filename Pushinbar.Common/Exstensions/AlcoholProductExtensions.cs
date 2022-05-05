@@ -44,7 +44,7 @@ namespace Pushinbar.Common.Exstensions
             alcoholProduct.Barcode = alcoholEntity.Barcode;
             alcoholProduct.Alc = alcoholEntity.Alc;
             alcoholProduct.IBU = alcoholEntity.IBU;
-            alcoholProduct.Subcategories = alcoholEntity.Subcategories;
+            alcoholProduct.Subcategories = alcoholEntity.Subcategories.Split(',');
             alcoholProduct.UntappdUrl = alcoholEntity.UntappdUrl;
             alcoholProduct.Brewery = alcoholEntity.Brewery;
             alcoholProduct.Volume = alcoholEntity.Volume;

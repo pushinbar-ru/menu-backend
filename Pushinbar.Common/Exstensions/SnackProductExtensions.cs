@@ -37,7 +37,7 @@ namespace Pushinbar.Common.Exstensions
             alcoholProduct.Status = alcoholEntity.Status;
             alcoholProduct.LikesCount = alcoholEntity.LikesCount;
             alcoholProduct.Barcode = alcoholEntity.Barcode;
-            alcoholProduct.Subcategories = alcoholEntity.Subcategories;
+            alcoholProduct.Subcategories = alcoholEntity.Subcategories.Split(',');;
         }
     }
 }
