@@ -1,3 +1,5 @@
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore;
 using Pushinbar.Common.Entities;
 
@@ -20,7 +22,23 @@ namespace Pushinbar.Repositories
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(connectionString);
+            optionsBuilder.UseNpgsql(connectionString, builder =>
+            {
+                builder.RemoteCertificateValidationCallback((s, c, ch, sslPolicyErrors) =>
+                {
+                    if (sslPolicyErrors == SslPolicyErrors.None)
+                    {
+                        return true;
+                    }
+                    return false;
+                });
+                builder.ProvideClientCertificatesCallback(clientCerts =>
+                {
+                    var clientCertPath = "/home/berr-menu/.postgresql/root.crt";
+                    // To avoid permission ex run: "sudo chmod -R 777 /home/username/.postgresql/root.crt"
+                    var cert = new X509Certificate2(clientCertPath);
+                    clientCerts.Add(cert);
+                });
         }
     }
 }

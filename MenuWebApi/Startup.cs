@@ -43,13 +43,13 @@ namespace Pushinbar.API
             services.AddTransient<KonturMarketClient>((context) => 
                 new KonturMarketClient(konturMarketOptions.ApiKey, konturMarketOptions.ShopId));
             
-            services.AddTransient<AlcoholRepository>((context) => 
+            services.AddSingleton<AlcoholRepository>((context) => 
                 new AlcoholRepository(dbOptions.ConnectionString));
-            services.AddTransient<NotAlcoholRepository>((context) => 
+            services.AddSingleton<NotAlcoholRepository>((context) => 
                 new NotAlcoholRepository(dbOptions.ConnectionString));
-            services.AddTransient<EatRepository>((context) => 
+            services.AddSingleton<EatRepository>((context) => 
                 new EatRepository(dbOptions.ConnectionString));
-            services.AddTransient<SnackRepository>((context) => 
+            services.AddSingleton<SnackRepository>((context) => 
                 new SnackRepository(dbOptions.ConnectionString));
             
             
