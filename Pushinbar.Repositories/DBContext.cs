@@ -30,6 +30,7 @@ namespace Pushinbar.Repositories
                     {
                         return true;
                     }
+
                     return false;
                 });
                 builder.ProvideClientCertificatesCallback(clientCerts =>
@@ -39,6 +40,7 @@ namespace Pushinbar.Repositories
                     var cert = new X509Certificate2(clientCertPath);
                     clientCerts.Add(cert);
                 });
+            });
         }
     }
 }
