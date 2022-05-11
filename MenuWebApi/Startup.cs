@@ -42,6 +42,11 @@ namespace Pushinbar.API
 
             services.AddTransient<KonturMarketClient>((context) => 
                 new KonturMarketClient(konturMarketOptions.ApiKey, konturMarketOptions.ShopId));
+
+            services.AddDbContext<DBContext>(options =>
+            {
+                options.UseNpgsql(dbOptions.ConnectionString);
+            });
             
             services.AddSingleton<AlcoholRepository>((context) => 
                 new AlcoholRepository(dbOptions.ConnectionString));
