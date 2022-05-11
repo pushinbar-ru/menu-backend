@@ -58,10 +58,10 @@ namespace Pushinbar.API
                 new SnackRepository(dbOptions.ConnectionString));
             
             
-            services.AddTransient<IProductsService<AlcoholProduct>, AlcoholProductsService>();
-            services.AddTransient<IProductsService<NotAlcoholProduct>, NotAlcoholProductsService>();
-            services.AddTransient<IProductsService<EatProduct>, EatProductsService>();
-            services.AddTransient<IProductsService<SnackProduct>, SnackProductsService>();
+            services.AddSingleton<IProductsService<AlcoholProduct>, AlcoholProductsService>();
+            services.AddSingleton<IProductsService<NotAlcoholProduct>, NotAlcoholProductsService>();
+            services.AddSingleton<IProductsService<EatProduct>, EatProductsService>();
+            services.AddSingleton<IProductsService<SnackProduct>, SnackProductsService>();
             services.AddControllers().AddJsonOptions(x =>
             {
                 // serialize enums as strings in api responses (e.g. Role)
