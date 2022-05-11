@@ -52,7 +52,7 @@ namespace Pushinbar.Services.Products.Snack
                         Status = ProductStatus.New,
                         LikesCount = 0,
                         Barcode = snackProduct.Barcodes?.FirstOrDefault(),
-                        Subcategories = null
+                        Subcategories = ""
                     };
                     await snackRepository.CreateAsync(productEntity);
                     await snackRepository.SaveAsync();

@@ -52,7 +52,7 @@ namespace Pushinbar.Services.Products.NotAlcohol
                         Status = ProductStatus.New,
                         LikesCount = 0,
                         Barcode = notAlcoholProduct.Barcodes?.FirstOrDefault(),
-                        Subcategories = null,
+                        Subcategories = "",
                         Volume = null
                     };
                     await notAlcoholRepository.CreateAsync(productEntity);

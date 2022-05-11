@@ -51,7 +51,7 @@ namespace Pushinbar.Services.Products.Alcohol
                         Status = ProductStatus.New,
                         LikesCount = 0,
                         Barcode = alcoholProduct.Barcodes?.FirstOrDefault(),
-                        Subcategories = null,
+                        Subcategories = "",
                         Alc = null,
                         IBU = null,
                         UntappdUrl = null,

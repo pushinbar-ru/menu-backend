@@ -52,7 +52,7 @@ namespace Pushinbar.Services.Products.Eat
                         Status = ProductStatus.New,
                         LikesCount = 0,
                         Barcode = eatProduct.Barcodes?.FirstOrDefault(),
-                        Subcategories = null
+                        Subcategories = ""
                     };
                     await eatRepository.CreateAsync(productEntity);
                     await eatRepository.SaveAsync();
