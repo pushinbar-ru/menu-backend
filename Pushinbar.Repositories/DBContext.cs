@@ -22,25 +22,7 @@ namespace Pushinbar.Repositories
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(connectionString, builder =>
-            {
-                builder.RemoteCertificateValidationCallback((s, c, ch, sslPolicyErrors) =>
-                {
-                    if (sslPolicyErrors == SslPolicyErrors.None)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                });
-                builder.ProvideClientCertificatesCallback(clientCerts =>
-                {
-                    var clientCertPath = "/home/berr-menu/.postgresql/root.crt";
-                    // To avoid permission ex run: "sudo chmod -R 777 /home/username/.postgresql/root.crt"
-                    var cert = new X509Certificate2(clientCertPath);
-                    clientCerts.Add(cert);
-                });
-            });
+            optionsBuilder.UseNpgsql(connectionString);
         }
     }
 }
