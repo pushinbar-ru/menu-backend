@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Pushinbar.KonturMarket.Client\Pushinbar.KonturMarket.Client.csproj" />
     <ProjectReference Include="..\Pushinbar.Services\Pushinbar.Services.csproj" />
+    <ProjectReference Include="..\Pushinbar.Untappd.Client\Pushinbar.Untappd.Client.csproj" />
   </ItemGroup>
 
 </Project>
