@@ -9,9 +9,9 @@ namespace Pushinbar.Untappd.Client
     {
         private const string DescriptionPattern =
             "<div class=\"beer-descrption-read-less\" style=\"display: none;\">(.*?)<a href=\"#\" class=\"read-less track-click\" data-track=\"beer\" data-href=\":info/readless\">Show Less</a></div>";
-        private const string AlcPattern = "<p class=\"abv\">(.*?)% ABV</p>";
+        private const string AlcPattern = "<p class=\"abv\">\\s(.*?)%\\sABV\\s</p>";
         private const string SubcategoryPattern = "<p class=\"style\">(.*?)</p>";
-        private const string IbuPattern = "<p class=\"ibu\">(.*?) IBU</p>";
+        private const string IbuPattern = "<p class=\"ibu\">\\s(.*?)\\sIBU\\s</p>";
         private const string BreweryPattern = "<p class=\"brewery\"><a href=\"/onthebones\">(.*?)</a></p>";
         private const string NamePattern = "<div class=\"name\"><h1>(.*?)</h1>";
 
@@ -31,7 +31,7 @@ namespace Pushinbar.Untappd.Client
                 Name = GetRegexValueFromContent(strContent, NamePattern),
                 Alc = GetRegexValueFromContent(strContent, AlcPattern),
                 Subcategory = GetRegexValueFromContent(strContent, SubcategoryPattern),
-                IBU = ibu.Equals("No") ? "0" : ibu,
+                IBU = ibu is "No" ? "0" : ibu,
                 Brewery = GetRegexValueFromContent(strContent, BreweryPattern)
             };
 
