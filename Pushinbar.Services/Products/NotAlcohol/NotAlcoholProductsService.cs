@@ -48,7 +48,7 @@ namespace Pushinbar.Services.Products.NotAlcohol
                         Photo = null,
                         Description = null,
                         Price = notAlcoholProduct.SellPricePerUnit,
-                        Type = ProductType.Alcohol,
+                        Type = ProductType.NotAlcohol,
                         Status = ProductStatus.New,
                         LikesCount = 0,
                         Barcode = notAlcoholProduct.Barcodes?.FirstOrDefault(),
@@ -56,6 +56,12 @@ namespace Pushinbar.Services.Products.NotAlcohol
                         Volume = null
                     };
                     await notAlcoholRepository.CreateAsync(productEntity);
+                    await notAlcoholRepository.SaveAsync();
+                }
+                else if (productEntity.Type == ProductType.Alcohol)
+                {
+                    productEntity.Type = ProductType.NotAlcohol;
+                    notAlcoholRepository.Update(productEntity);
                     await notAlcoholRepository.SaveAsync();
                 }
 
