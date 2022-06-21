@@ -20,6 +20,7 @@ namespace Pushinbar.API.Controllers
             var result = new UntappdBeerInfoDto()
             { 
                 UntappdUrl = beerInfo.UntappdUrl,
+                Name = beerInfo.Name,
                 Description = beerInfo.Description,
                 Alc = beerInfo.Alc,
                 Brewery = beerInfo.Brewery,

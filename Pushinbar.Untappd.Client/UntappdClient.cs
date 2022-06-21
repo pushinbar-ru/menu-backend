@@ -9,10 +9,11 @@ namespace Pushinbar.Untappd.Client
     {
         private const string DescriptionPattern =
             "<div class=\"beer-descrption-read-less\" style=\"display: none;\">(.*?)<a href=\"#\" class=\"read-less track-click\" data-track=\"beer\" data-href=\":info/readless\">Show Less</a></div>";
-        private const string AlcPattern = "<p class=\"abv\">(.*?)</p>";
+        private const string AlcPattern = "<p class=\"abv\">(.*?)% ABV</p>";
         private const string SubcategoryPattern = "<p class=\"style\">(.*?)</p>";
-        private const string IbuPattern = "<p class=\"ibu\">(.*?)</p>";
+        private const string IbuPattern = "<p class=\"ibu\">(.*?) IBU</p>";
         private const string BreweryPattern = "<p class=\"brewery\"><a href=\"/onthebones\">(.*?)</a></p>";
+        private const string NamePattern = "<div class=\"name\"><h1>(.*?)</h1>";
 
 
         public static async Task<BeerInfo> GetBeerInformationByUrlAsync(string url)
@@ -21,14 +22,16 @@ namespace Pushinbar.Untappd.Client
             var response = await httpClient.GetAsync(url);
             var content = await response.Content.ReadAsStringAsync();
             var strContent = Regex.Replace(content, @"\n", "");
+            var ibu = GetRegexValueFromContent(strContent, IbuPattern);
 
             var result = new BeerInfo()
             {
                 UntappdUrl = url,
                 Description = GetRegexValueFromContent(strContent, DescriptionPattern),
+                Name = GetRegexValueFromContent(strContent, NamePattern),
                 Alc = GetRegexValueFromContent(strContent, AlcPattern),
                 Subcategory = GetRegexValueFromContent(strContent, SubcategoryPattern),
-                IBU = GetRegexValueFromContent(strContent, IbuPattern),
+                IBU = ibu.Equals("No") ? "0" : ibu,
                 Brewery = GetRegexValueFromContent(strContent, BreweryPattern)
             };
 

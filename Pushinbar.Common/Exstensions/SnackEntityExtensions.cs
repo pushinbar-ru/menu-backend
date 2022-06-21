@@ -13,7 +13,7 @@ namespace Pushinbar.Common.Exstensions
             alcoholEntity.Description = alcoholUpdateProduct.Description;
             alcoholEntity.Status = alcoholUpdateProduct.Status;
             alcoholEntity.Barcode = alcoholUpdateProduct.Barcode;
-            alcoholEntity.Subcategories = alcoholUpdateProduct.Subcategories.ToString();
+            alcoholEntity.Subcategories = string.Join(",", alcoholUpdateProduct.Subcategories);
         }
     }
 }

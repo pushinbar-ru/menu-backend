@@ -9,6 +9,7 @@ namespace Pushinbar.Common.DTOs.Untappd
     public class UntappdBeerInfoDto
     {
         public string UntappdUrl { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public string Alc { get; set; }
         public string Subcategory { get; set; }

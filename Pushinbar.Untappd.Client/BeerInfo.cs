@@ -9,6 +9,7 @@ namespace Pushinbar.Untappd.Client
     public class BeerInfo
     {
         public string UntappdUrl { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public string Alc { get; set; }
         public string Subcategory { get; set; }
