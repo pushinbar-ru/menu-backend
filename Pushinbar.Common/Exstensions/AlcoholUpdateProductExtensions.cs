@@ -15,6 +15,7 @@ namespace Pushinbar.Common.Exstensions
             alcoholUpdateProduct.Barcode = alcoholUpdateProductDto.Barcode;
             alcoholUpdateProduct.Subcategories = alcoholUpdateProductDto.Subcategories;
             alcoholUpdateProduct.IBU = alcoholUpdateProductDto.IBU;
+            alcoholUpdateProduct.Alc = alcoholUpdateProductDto.Alc;
             alcoholUpdateProduct.UntappdUrl = alcoholUpdateProductDto.UntappdUrl;
             alcoholUpdateProduct.Brewery = alcoholUpdateProductDto.Brewery;
             alcoholUpdateProduct.Volume = alcoholUpdateProductDto.Volume;
