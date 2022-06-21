@@ -23,7 +23,7 @@ namespace Pushinbar.Repositories
 
         public async Task<NotAlcoholEntity?> GetAsync(Guid id)
         {
-            throw await dbContext.NotAlcohol.FindAsync(id);
+            return await dbContext.NotAlcohol.FindAsync(id);
         }
 
         public async Task CreateAsync(NotAlcoholEntity item)
