@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Text.RegularExpressions;
@@ -12,7 +13,7 @@ namespace Pushinbar.Untappd.Client
         private const string AlcPattern = "<p class=\"abv\">(.*?)</p>";
         private const string SubcategoryPattern = "<p class=\"style\">(.*?)</p>";
         private const string IbuPattern = "<p class=\"ibu\">(.*?)</p>";
-        private const string BreweryPattern = "<p class=\"brewery\"><a href=\"/onthebones\">(.*?)</a></p>";
+        private const string BreweryPattern = "<p class=\"brewery\"><a href=\"(.*?)\">(.*?)</a></p>";
         private const string NamePattern = "<div class=\"name\"><h1>(.*?)</h1>";
 
 
@@ -37,17 +38,17 @@ namespace Pushinbar.Untappd.Client
                 Alc = alc,
                 Subcategory = GetRegexValueFromContent(strContent, SubcategoryPattern),
                 IBU = ibu is "No" ? "0" : ibu,
-                Brewery = GetRegexValueFromContent(strContent, BreweryPattern)
+                Brewery = GetRegexValueFromContent(strContent, BreweryPattern, 2)
             };
 
             return result;
         }
 
-        private static string GetRegexValueFromContent(string content, string pattern)
+        private static string GetRegexValueFromContent(string content, string pattern, int index = 1)
         {
             var reg = new Regex(pattern);
             var pre = reg.Match(content);
-            return pre.Groups.Count > 1 ? pre.Groups[1].Value : null;
+            return pre.Groups.Count > index ? pre.Groups[index].Value : null;
         } 
     }
 }
