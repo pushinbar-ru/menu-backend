@@ -26,11 +26,13 @@ namespace Pushinbar.Untappd.Client
             ibu = ibu?.Replace("IBU", "")?.Trim();
             var alc = GetRegexValueFromContent(strContent, AlcPattern);
             alc = alc?.Replace("% ABV", "")?.Trim();
+            var description = GetRegexValueFromContent(strContent, DescriptionPattern);
+            description = description.Replace("<br />", "");
 
             var result = new BeerInfo()
             {
                 UntappdUrl = url,
-                Description = GetRegexValueFromContent(strContent, DescriptionPattern),
+                Description = description,
                 Name = GetRegexValueFromContent(strContent, NamePattern),
                 Alc = alc,
                 Subcategory = GetRegexValueFromContent(strContent, SubcategoryPattern),
