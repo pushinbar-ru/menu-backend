@@ -37,7 +37,7 @@ namespace Pushinbar.Common.Exstensions
             alcoholProduct.Name = alcoholEntity.Name;
             alcoholProduct.Photo = alcoholEntity.Photo;
             alcoholProduct.Description = alcoholEntity.Description;
-            alcoholProduct.Price = alcoholEntity.Price;
+            alcoholProduct.Price = (float)alcoholEntity.Price;
             alcoholProduct.Type = alcoholEntity.Type;
             alcoholProduct.Status = alcoholEntity.Status;
             alcoholProduct.LikesCount = alcoholEntity.LikesCount;

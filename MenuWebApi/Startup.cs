@@ -19,6 +19,9 @@ using Pushinbar.Services.Products.Alcohol;
 using Pushinbar.Services.Products.Eat;
 using Pushinbar.Services.Products.NotAlcohol;
 using Pushinbar.Services.Products.Snack;
+using Ydb.Sdk;
+using Ydb.Sdk.Table;
+using Ydb.Sdk.Yc;
 
 namespace Pushinbar.API
 {
@@ -43,19 +46,12 @@ namespace Pushinbar.API
             services.AddTransient<KonturMarketClient>((context) => 
                 new KonturMarketClient(konturMarketOptions.ApiKey, konturMarketOptions.ShopId));
 
-            services.AddDbContext<DBContext>(options =>
-            {
-                options.UseNpgsql(dbOptions.ConnectionString);
-            });
-            
-            services.AddSingleton<AlcoholRepository>((context) => 
-                new AlcoholRepository(dbOptions.ConnectionString));
-            services.AddSingleton<NotAlcoholRepository>((context) => 
-                new NotAlcoholRepository(dbOptions.ConnectionString));
-            services.AddSingleton<EatRepository>((context) => 
-                new EatRepository(dbOptions.ConnectionString));
-            services.AddSingleton<SnackRepository>((context) => 
-                new SnackRepository(dbOptions.ConnectionString));
+            AddDB(services);
+
+            services.AddSingleton<AlcoholRepository>();
+            services.AddSingleton<NotAlcoholRepository>();
+            services.AddSingleton<EatRepository>();
+            services.AddSingleton<SnackRepository>();
             
             
             services.AddSingleton<IProductsService<AlcoholProduct>, AlcoholProductsService>();
@@ -94,6 +90,29 @@ namespace Pushinbar.API
             {
                 endpoints.MapControllers();
             });
+        }
+        
+        public static IServiceCollection AddDB(IServiceCollection services)
+        {
+            var saProvider = new ServiceAccountProvider(
+                saFilePath: "creds.json", // Path to file with service account JSON info
+                loggerFactory: new LoggerFactory());
+
+            saProvider.Initialize().GetAwaiter().GetResult();
+            var config = new DriverConfig(
+                endpoint: "grpcs://ydb.serverless.yandexcloud.net:2135",
+                database: "/ru-central1/b1gs6rm7jilgibstbues/etncq92l3lr1lachc2v1",
+                credentials: saProvider
+            );
+
+            var driver = new Driver(
+                config: config,
+                loggerFactory: new LoggerFactory()
+            );
+
+            driver.Initialize().GetAwaiter().GetResult(); // Make sure to await driver initialization
+            return services
+                .AddSingleton(new TableClient(driver, new TableClientConfig()));
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Pushinbar.Services.Products.Alcohol
                 .Where(product => ProductsServiceHelper.IsAlcohol(product.GroupId, productGroups.ToArray()));
             
             var result = new List<AlcoholProduct>();
-            var alcoholEntities = alcoholRepository.GetAll().ToArray();
+            var alcoholEntities = (await alcoholRepository.GetAll()).ToArray();
             foreach (var alcoholProduct in alcoholProducts)
             {
                 var productEntity = alcoholEntities.FirstOrDefault(x => x.KonturMarketId == alcoholProduct.Id);
@@ -59,7 +59,6 @@ namespace Pushinbar.Services.Products.Alcohol
                         Volume = null
                     };
                     await alcoholRepository.CreateAsync(productEntity);
-                    await alcoholRepository.SaveAsync();
                 }
 
                 var product = new AlcoholProduct()
@@ -97,8 +96,8 @@ namespace Pushinbar.Services.Products.Alcohol
             
             item.ApplyUpdate(alcoholUpdateProduct);
 
-            alcoholRepository.Update(item);
-            await alcoholRepository.SaveAsync();
+            // или без await тут и в других продутках?
+            await alcoholRepository.Update(item);
 
             return true;
         }

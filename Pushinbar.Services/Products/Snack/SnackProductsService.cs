@@ -34,7 +34,7 @@ namespace Pushinbar.Services.Products.Snack
                 .Where(product => ProductsServiceHelper.IsSnack(product.GroupId, productGroups.ToArray()));
             
             var result = new List<SnackProduct>();
-            var snackEntities = snackRepository.GetAll().ToArray();
+            var snackEntities = (await snackRepository.GetAll()).ToArray();
             foreach (var snackProduct in snackProducts)
             {
                 var productEntity = snackEntities.FirstOrDefault(x => x.KonturMarketId == snackProduct.Id);
@@ -55,7 +55,6 @@ namespace Pushinbar.Services.Products.Snack
                         Subcategories = ""
                     };
                     await snackRepository.CreateAsync(productEntity);
-                    await snackRepository.SaveAsync();
                 }
 
                 var product = new SnackProduct()
@@ -94,8 +93,7 @@ namespace Pushinbar.Services.Products.Snack
             
             item.ApplyUpdate(alcoholUpdateProduct);
 
-            snackRepository.Update(item);
-            await snackRepository.SaveAsync();
+            await snackRepository.Update(item);
 
             return true;
         }

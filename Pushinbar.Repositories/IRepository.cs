@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pushinbar.Common.Entities;
 
 namespace Pushinbar.Repositories
 {
-    internal interface IRepository<T> : IDisposable where T : class
+    internal interface IRepository<T> where T : class
     {
-        public IEnumerable<T> GetAll();
-        public Task<T?> GetAsync(Guid id);
-        public Task CreateAsync(T item);
-        public void Update(T item);
-        public Task DeleteAsync(Guid id);
-        public Task SaveAsync();
+        public Task<IEnumerable<T>> GetAll();
+        public Task<T> GetAsync(Guid id);
+        public Task<T> CreateAsync(T item);
+        public Task Update(T item);
     }
 }

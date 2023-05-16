@@ -1,71 +1,136 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Pushinbar.Common.Entities;
-using Pushinbar.Common.Models.NotAlcohol;
+using Pushinbar.Common.Enums;
+using Ydb.Sdk.Table;
+using Ydb.Sdk.Value;
 
 namespace Pushinbar.Repositories
 {
     public class NotAlcoholRepository : IRepository<NotAlcoholEntity>
     {
-        private readonly DBContext dbContext;
+        private TableClient client;
  
-        public NotAlcoholRepository(string connectionString)
+        public NotAlcoholRepository(TableClient client)
         {
-            this.dbContext = new DBContext(connectionString);
+            this.client = client;
         }
-
-        public IEnumerable<NotAlcoholEntity> GetAll()
+        
+        public async Task<IEnumerable<NotAlcoholEntity>> GetAll()
         {
-            return dbContext.NotAlcohol;
-        }
-
-        public async Task<NotAlcoholEntity?> GetAsync(Guid id)
-        {
-            return await dbContext.NotAlcohol.FindAsync(id);
-        }
-
-        public async Task CreateAsync(NotAlcoholEntity item)
-        {
-            await dbContext.NotAlcohol.AddAsync(item);
-        }
-
-        public void Update(NotAlcoholEntity item)
-        {
-            dbContext.Entry(item).State = EntityState.Modified;
-        }
-
-        public async Task DeleteAsync(Guid id)
-        {
-            var item = await dbContext.NotAlcohol.FindAsync(id);
-            if (item != null)
-                dbContext.NotAlcohol.Remove(item);
-        }
-
-        public async Task SaveAsync()
-        {
-            await dbContext.SaveChangesAsync();
-        }
-
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if(!this.disposed)
+            var response = await client.SessionExec(async session =>
             {
-                if(disposing)
-                {
-                    dbContext.Dispose();
-                }
-            }
-            this.disposed = true;
+                var query = @"SELECT Id, KonturMarketId, Name, Photo, Description, Price, Type, Status, LikesCount, Barcode, Subcategories, Volume FROM NotAlcohol";
+
+                return await session.ExecuteDataQuery(
+                    query: query,
+                    parameters: new Dictionary<string, YdbValue>(),
+                    txControl: TxControl.BeginSerializableRW().Commit()
+                );
+            });
+
+            response.Status.EnsureSuccess();
+            var queryResponse = (ExecuteDataQueryResponse)response;
+            return queryResponse.Result.ResultSets[0].Rows.Select(row => new NotAlcoholEntity
+            {
+                Id = Guid.Parse((string?)row["Id"]),
+                KonturMarketId = Guid.Parse((ReadOnlySpan<char>)(string?)row["KonturMarketId"]),
+                Name = (string?)row["Name"],
+                Photo = (string?)row["Photo"],
+                Description = (string?)row["Description"],
+                Price = (float?)row["Price"],
+                Type = (ProductType)(int?)row["Type"],
+                Status = (ProductStatus)(int?)row["Status"],
+                LikesCount = (int?)row["LikesCount"],
+                Barcode = (string?)row["Barcode"],
+                Subcategories = (string?)row["Subcategories"],
+                Volume = (string?)row["Volume"]
+            });
         }
- 
-        public void Dispose()
+
+        public async Task<NotAlcoholEntity> GetAsync(Guid id)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            var response = await client.SessionExec(async session =>
+            {
+                var query = @$"SELECT Id, KonturMarketId, Name, Photo, Description, Price, Type, Status, LikesCount, Barcode, Subcategories, Volume FROM NotAlcohol WHERE Id = '{id}'";
+
+                return await session.ExecuteDataQuery(
+                    query: query,
+                    parameters: new Dictionary<string, YdbValue>(),
+                    txControl: TxControl.BeginSerializableRW().Commit()
+                );
+            });
+
+            response.Status.EnsureSuccess();
+            var queryResponse = (ExecuteDataQueryResponse)response;
+            return queryResponse.Result.ResultSets[0].Rows.Select(row => new NotAlcoholEntity
+            {
+                Id = Guid.Parse((string?)row["Id"]),
+                KonturMarketId = Guid.Parse((ReadOnlySpan<char>)(string?)row["KonturMarketId"]),
+                Name = (string?)row["Name"],
+                Photo = (string?)row["Photo"],
+                Description = (string?)row["Description"],
+                Price = (float?)row["Price"],
+                Type = (ProductType)(int?)row["Type"],
+                Status = (ProductStatus)(int?)row["Status"],
+                LikesCount = (int?)row["LikesCount"],
+                Barcode = (string?)row["Barcode"],
+                Subcategories = (string?)row["Subcategories"],
+                Volume = (string?)row["Volume"]
+            }).FirstOrDefault();
+        }
+        
+        public async Task<NotAlcoholEntity> CreateAsync(NotAlcoholEntity item)
+        {
+        
+            var response = await client.SessionExec(async session =>
+            {
+                var query = @$"
+INSERT INTO NotAlcohol (Id, KonturMarketId, Name, Photo, Description, Price, Type, Status, LikesCount, Barcode, Subcategories, Volume) VALUES 
+('{item.Id.ToString()}', '{item.KonturMarketId.ToString()}', '{item.Name.Replace('\'', '"')}', '{item.Photo}', '{item.Description}', {item.Price.GetValueOrDefault()}, {(int)item.Type}, {(int)item.Status}, {item.LikesCount}, '{item.Barcode}', '{item.Subcategories}', '{item.Volume}')";
+
+                return await session.ExecuteDataQuery(
+                    query: query,
+                    txControl: TxControl.BeginSerializableRW().Commit()
+                );
+            });
+
+            response.Status.EnsureSuccess();
+        
+            return new NotAlcoholEntity
+            {
+                Id = item.Id,
+                KonturMarketId = item.KonturMarketId,
+                Name = item.Name,
+                Photo = item.Photo,
+                Description = item.Description,
+                Price = item.Price,
+                Type = item.Type,
+                Status = item.Status,
+                LikesCount = item.LikesCount,
+                Barcode = item.Barcode,
+                Subcategories = item.Subcategories,
+                Volume = item.Volume
+            };
+        }
+
+        public async Task Update(NotAlcoholEntity item)
+        {
+            var response = await client.SessionExec(async session =>
+            {
+                var query = @$"
+UPDATE NotAlcohol SET
+KonturMarketId = '{item.KonturMarketId.ToString()}', Name = '{item.Name.Replace('\'', '"')}', Photo = '{item.Photo}', Description = '{item.Description}', Price = {item.Price.GetValueOrDefault()}, Type = {(int)item.Type}, Status = {(int)item.Status}, LikesCount = {item.LikesCount}, Barcode = '{item.Barcode}', Subcategories = '{item.Subcategories}', Volume = '{item.Volume}' where Id = '{item.Id}'";
+
+                return await session.ExecuteDataQuery(
+                    query: query,
+                    txControl: TxControl.BeginSerializableRW().Commit()
+                );
+            });
+
+            response.Status.EnsureSuccess();
         }
     }
 }

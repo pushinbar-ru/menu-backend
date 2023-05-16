@@ -34,7 +34,7 @@ namespace Pushinbar.Services.Products.NotAlcohol
                 .Where(product => ProductsServiceHelper.IsNotAlcohol(product.GroupId, productGroups.ToArray()));
             
             var result = new List<NotAlcoholProduct>();
-            var notAlcoholEntities = notAlcoholRepository.GetAll().ToArray();
+            var notAlcoholEntities = (await notAlcoholRepository.GetAll()).ToArray();
             foreach (var notAlcoholProduct in notAlcoholProducts)
             {
                 var productEntity = notAlcoholEntities.FirstOrDefault(x => x.KonturMarketId == notAlcoholProduct.Id);
@@ -56,13 +56,11 @@ namespace Pushinbar.Services.Products.NotAlcohol
                         Volume = null
                     };
                     await notAlcoholRepository.CreateAsync(productEntity);
-                    await notAlcoholRepository.SaveAsync();
                 }
                 else if (productEntity.Type == ProductType.Alcohol)
                 {
                     productEntity.Type = ProductType.NotAlcohol;
-                    notAlcoholRepository.Update(productEntity);
-                    await notAlcoholRepository.SaveAsync();
+                    await notAlcoholRepository.Update(productEntity);
                 }
 
                 var product = new NotAlcoholProduct()
@@ -101,8 +99,7 @@ namespace Pushinbar.Services.Products.NotAlcohol
             
             item.ApplyUpdate(alcoholUpdateProduct);
 
-            notAlcoholRepository.Update(item);
-            await notAlcoholRepository.SaveAsync();
+            await notAlcoholRepository.Update(item);
 
             return true;
         }

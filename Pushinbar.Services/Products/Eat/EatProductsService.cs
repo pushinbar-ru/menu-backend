@@ -34,7 +34,7 @@ namespace Pushinbar.Services.Products.Eat
                 .Where(product => ProductsServiceHelper.IsEat(product.GroupId, productGroups.ToArray()));
             
             var result = new List<EatProduct>();
-            var eatEntities = eatRepository.GetAll().ToArray();
+            var eatEntities = (await eatRepository.GetAll()).ToArray();
             foreach (var eatProduct in eatProducts)
             {
                 var productEntity = eatEntities.FirstOrDefault(x => x.KonturMarketId == eatProduct.Id);
@@ -55,7 +55,6 @@ namespace Pushinbar.Services.Products.Eat
                         Subcategories = ""
                     };
                     await eatRepository.CreateAsync(productEntity);
-                    await eatRepository.SaveAsync();
                 }
 
                 var product = new EatProduct()
@@ -94,8 +93,7 @@ namespace Pushinbar.Services.Products.Eat
             
             item.ApplyUpdate(eatUpdateProduct);
 
-            eatRepository.Update(item);
-            await eatRepository.SaveAsync();
+            await eatRepository.Update(item);
 
             return true;
         }

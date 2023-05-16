@@ -15,7 +15,7 @@ namespace Pushinbar.Common.DTOs.NotAlcohol
         public ProductType Type { get; set; }
         public float Rest { get; set; }
         public ProductStatus Status { get; set; }
-        public int LikesCount { get; set; }
+        public int? LikesCount { get; set; }
         public string Barcode { get; set; }
         public IEnumerable<string> Subcategories { get; set; }
         public string  Volume { get; set; }
